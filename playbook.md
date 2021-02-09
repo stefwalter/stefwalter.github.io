@@ -7,8 +7,9 @@ It should be no surprise that many projects have already taken some of the initi
  1. **Document SaaS deployment**
     1. Write up all the steps (actual commands) you know about deploying your SaaS.
     2. Start the document with an empty environment (e.g. a VM or cluster) and finish with the service running and a brief description of how to access it.
+    3. Make sure to clearly describe requirements and expectations (e.g. you need to have OpenShift 4.6 cluster or base images need to contain python 3.9).
  2. **Test your Saas deployment documentation**
-    1. Sit down with someone unfamiliar with deploying your SaaS, but is a capable developer and/or admin
+    1. Sit down with someone unfamiliar with deploying your SaaS, but is a capable developer and/or admin.
     2. Have them try out each step you documented.
     3. Write down any steps that are missing, or hand wavy.
     4. Rinse repeat: Walk through the deployment again until everything is documented.
@@ -17,18 +18,19 @@ It should be no surprise that many projects have already taken some of the initi
     2. Automate as much as possible of your deployment - ideally, any contributor should be able to perform the deployment with only a single command.
     3. On the first pass skip steps that are deemed “unautomatable”.
     4. Try to consolidate unautomatable steps into “Prerequisites” or another large group of tasks.
-    5. Have your CI use as many parts of this automation to deploy as possible.
+    5. Have your CI use as many parts of this automation to deploy as possible — this means you should test your deployment process during development of your service.
  4. **Use your automation to (re)deploy a staging environment**
     1. Run the automation to deploy another parallel copy of the SaaS as a second “staging” environment.
     2. Have this staging environment use the latest merged SaaS code.
     3. If you have already deployed a staging environment then redeploy it.
     4. If you’re unable to deploy a second copy of the SaaS, then fix the SaaS and/or the deployment automation, and repeat until successful.
+    5. Deploy to staging as often as possible: ideally after merging any change.
  5. **Shard your production workload, so some hits staging environment**
     1. Choose a sharding strategy for your workload. This might be sharded along lines of certain users, or certain clients, certain parts of your data.
-    2. Implement that sharding in your SaaS, and redirect some of your real production workload to your staging environment.
+    2. Implement such sharding in your SaaS, and redirect some of your real production workload to your staging environment.
        1. Subdomain: Openshift Router Sharding
-       2. By user: TBD
-       3. By data: TBD
+       2. By user: have a group of early adopters — alpha channel
+       3. By data: mirror some traffic to production and staging environment without affecting your users
     3. This fundamentally changes your “staging environment” to have many properties of a “canary deployment” … it’s really a branch.
        1. You might choose blue/green or A/B deployments as an interim step to get here, but the end goal is to be continuously running part of your production workload in this “canary deployment”.
  6. **On demand redeployment and sharding configuration**
