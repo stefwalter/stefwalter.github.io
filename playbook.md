@@ -52,11 +52,13 @@ It should be no surprise that many projects have already taken some of the initi
     2. Ensure team members can create a new canary deployment for a specific pull request, or set of changes, handling some specific production workload.
     3. Do cost projections for having N deployments, and look for non-scalable infrastructure expenses.
     4. Remove the stock shared canary deployment.
+
  9. **Non-team members can create canary deployment**
     1. Add tooling and remove obstacles so that folks outside the team, but within the company, can create a staging environment.
     2. Adjust the cross check requirements above for running unmerged code as necessary. It may be necessary to make them more strict here.
- 10. **Outsiders can create staging environments that service production workload**
-    1. Remove remaining obstacles so that outside contributors can create staging environments for contributed work, and run production workload on them.
+
+ 10. **Outsiders can create staging environments that service production workload**  
+    1. Remove remaining obstacles so that outside contributors can create staging environments for contributed work, and run production workload on them.  
     2. Could imagine this includes:
        1. Code review policy (since outside code is run, access to data)
        2. Cost projections (and adjustments based on what’s learned)
